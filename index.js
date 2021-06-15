@@ -8,5 +8,4 @@ app.use(express.urlencoded({extended: false}));
 // routes
 app.use(require('./src/api/routes'));
 
-console.log('Server on port 3000');
 app.listen(process.env.PORT || 3000);
