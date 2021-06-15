@@ -7,10 +7,6 @@
   },
   "servers": [
     {
-      "url": "https://virtserver.swaggerhub.com/MartinQuijano/Esenciales/1.0.0",
-      "description": "SwaggerHub API Auto Mocking"
-    },
-    {
       "url": "https://esenciales-api-quijano.herokuapp.com/",
       "description": "Esenciales API Heroku"
     }
