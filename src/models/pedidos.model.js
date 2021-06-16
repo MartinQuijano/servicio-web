@@ -43,7 +43,7 @@ async function obtCategoriaMasIngresosGeneradosEnPeriodo(cantidad, desde, hasta)
 async function obtTotalEnVentasPorAño(){
     const sequelize = getSequelize();
     
-    res = await sequelize.query('SELECT DATE_TRUNC(\'year\',fecha) as fecha, sum(lista_pedidos.cantidad * p.precio) as total FROM lista_pedidos INNER JOIN productos p ON lista_pedidos.producto_id = p.id INNER JOIN pedidos ON lista_pedidos.pedido_id = pedidos.id GROUP BY DATE_TRUNC(\'year\', fecha) ORDER BY fecha');
+    res = await sequelize.query('SELECT DATE_TRUNC(\'year\',fecha)::date as fecha, sum(lista_pedidos.cantidad * p.precio) as total FROM lista_pedidos INNER JOIN productos p ON lista_pedidos.producto_id = p.id INNER JOIN pedidos ON lista_pedidos.pedido_id = pedidos.id GROUP BY DATE_TRUNC(\'year\', fecha)::date ORDER BY fecha');
 
     json = JSON.stringify(res[0]);
 
@@ -53,7 +53,7 @@ async function obtTotalEnVentasPorAño(){
 async function obtTotalEnVentasPorMes(){
     const sequelize = getSequelize();
     
-    res = await sequelize.query('SELECT DATE_TRUNC(\'month\',fecha) as fecha, sum(lista_pedidos.cantidad * p.precio) as total FROM lista_pedidos INNER JOIN productos p ON lista_pedidos.producto_id = p.id INNER JOIN pedidos ON lista_pedidos.pedido_id = pedidos.id GROUP BY DATE_TRUNC(\'month\', fecha) ORDER BY fecha');
+    res = await sequelize.query('SELECT DATE_TRUNC(\'month\',fecha)::date as fecha, sum(lista_pedidos.cantidad * p.precio) as total FROM lista_pedidos INNER JOIN productos p ON lista_pedidos.producto_id = p.id INNER JOIN pedidos ON lista_pedidos.pedido_id = pedidos.id GROUP BY DATE_TRUNC(\'month\', fecha)::date ORDER BY fecha');
 
     json = JSON.stringify(res[0]);
 
@@ -63,7 +63,7 @@ async function obtTotalEnVentasPorMes(){
 async function obtTotalEnVentasPorDia(){
     const sequelize = getSequelize();
     
-    res = await sequelize.query('SELECT DATE_TRUNC(\'day\',fecha) as fecha, sum(lista_pedidos.cantidad * p.precio) as total FROM lista_pedidos INNER JOIN productos p ON lista_pedidos.producto_id = p.id INNER JOIN pedidos ON lista_pedidos.pedido_id = pedidos.id GROUP BY DATE_TRUNC(\'day\', fecha) ORDER BY fecha');
+    res = await sequelize.query('SELECT DATE_TRUNC(\'day\',fecha)::date as fecha, sum(lista_pedidos.cantidad * p.precio) as total FROM lista_pedidos INNER JOIN productos p ON lista_pedidos.producto_id = p.id INNER JOIN pedidos ON lista_pedidos.pedido_id = pedidos.id GROUP BY DATE_TRUNC(\'day\', fecha)::date ORDER BY fecha');
 
     json = JSON.stringify(res[0]);
 
