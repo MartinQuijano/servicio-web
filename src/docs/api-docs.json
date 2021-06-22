@@ -1,0 +1,820 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Esenciales API",
+    "description": "Esta API permite obtener información de las ventas de los productos.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://esenciales-api-quijano.herokuapp.com/",
+      "description": "Esenciales API Heroku"
+    }
+  ],
+  "tags": [
+    {
+      "name": "productos",
+      "description": "Todos sobre las ventas de productos"
+    },
+    {
+      "name": "pedidos",
+      "description": "Todos sobre ventas generales"
+    }
+  ],
+  "paths": {
+    "/productos/masvendidos/{cantidad}": {
+      "get": {
+        "tags": [
+          "productos"
+        ],
+        "summary": "Obtener la cantidad ingresada de productos más vendidos",
+        "description": "Retorna la cantidad pedida de productos más vendidos",
+        "parameters": [
+          {
+            "name": "cantidad",
+            "in": "path",
+            "description": "cantidad de productos a retornar",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "operación exitosa",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Vendidos"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error en la entrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorCantidad"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/productos/masvendidos/{cantidad}/desde/{inicio}/hasta/{fin}": {
+      "get": {
+        "tags": [
+          "productos"
+        ],
+        "summary": "Obtener la cantidad ingresada de productos más vendidos para un periodo determinado",
+        "description": "Retorna la cantidad pedida de productos más vendidos para un periodo",
+        "parameters": [
+          {
+            "name": "cantidad",
+            "in": "path",
+            "description": "cantidad de productos a retornar",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "inicio",
+            "in": "path",
+            "description": "fecha de inicio del periodo",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "format": "aaaa/mm/dd"
+            }
+          },
+          {
+            "name": "fin",
+            "in": "path",
+            "description": "fecha de fin del periodo",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "format": "aaaa/mm/dd"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "operación exitosa",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Vendidos"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error en la entrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_400"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/productos/masvendidos/{cantidad}/categoria/{categoria}": {
+      "get": {
+        "tags": [
+          "productos"
+        ],
+        "summary": "Obtener la cantidad ingresada de productos más vendidos para una categoria en particular",
+        "description": "Retorna la cantidad pedida de productos más vendidos de una categoria",
+        "parameters": [
+          {
+            "name": "cantidad",
+            "in": "path",
+            "description": "cantidad de productos a retornar",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "categoria",
+            "in": "path",
+            "description": "categoria de los productos a retornar",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "format": "alfabetico"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "operación exitosa",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VendidosCategoria"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error en la entrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_400_1"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/productos/masvendidos/{cantidad}/categoria/{categoria}/desde/{inicio}/hasta/{fin}": {
+      "get": {
+        "tags": [
+          "productos"
+        ],
+        "summary": "Obtener la cantidad ingresada de productos más vendidos para una categoria en particular para un periodo especificado",
+        "description": "Retorna la cantidad pedida de productos más vendidos de una categoria para un periodo",
+        "parameters": [
+          {
+            "name": "cantidad",
+            "in": "path",
+            "description": "cantidad de productos a retornar",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "categoria",
+            "in": "path",
+            "description": "categoria de los productos a retornar",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "format": "alfabetico"
+            }
+          },
+          {
+            "name": "inicio",
+            "in": "path",
+            "description": "fecha de inicio del periodo",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "format": "aaaa/mm/dd"
+            }
+          },
+          {
+            "name": "fin",
+            "in": "path",
+            "description": "fecha de fin del periodo",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "format": "aaaa/mm/dd"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "operación exitosa",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VendidosCategoria"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error en la entrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_400_2"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pedidos/categoria/masvendidos/{cantidad}": {
+      "get": {
+        "tags": [
+          "pedidos"
+        ],
+        "summary": "Obtener la cantidad ingresada de categorias con mas productos vendidos",
+        "description": "Retorna la cantidad pedida de categorias junto con la cantidad vendida",
+        "parameters": [
+          {
+            "name": "cantidad",
+            "in": "path",
+            "description": "cantidad de categorias a retornar",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "operación exitosa",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoriasMasVendidos"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error en la entrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorCantidad"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pedidos/categoria/masvendidos/{cantidad}/desde/{inicio}/hasta/{fin}": {
+      "get": {
+        "tags": [
+          "pedidos"
+        ],
+        "summary": "Obtener la cantidad ingresada de categorias con mas productos vendidos para un periodo determinado",
+        "description": "Retorna la cantidad pedida de categorias junto con la cantidad vendida en el periodo indicado",
+        "parameters": [
+          {
+            "name": "cantidad",
+            "in": "path",
+            "description": "cantidad de categorias a retornar",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "inicio",
+            "in": "path",
+            "description": "fecha de inicio del periodo",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "format": "aaaa/mm/dd"
+            }
+          },
+          {
+            "name": "fin",
+            "in": "path",
+            "description": "fecha de fin del periodo",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "format": "aaaa/mm/dd"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "operación exitosa",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoriasMasVendidos"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error en la entrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_400"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pedidos/categoria/masingresos/{cantidad}": {
+      "get": {
+        "tags": [
+          "pedidos"
+        ],
+        "summary": "Obtener la cantidad ingresada de categorias con mayores ingresos",
+        "description": "Retorna la cantidad pedida de categorias junto con los ingresos generados",
+        "parameters": [
+          {
+            "name": "cantidad",
+            "in": "path",
+            "description": "cantidad de categorias a retornar",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "operación exitosa",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoriasMasIngresos"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error en la entrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorCantidad"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pedidos/categoria/masingresos/{cantidad}/desde/{inicio}/hasta/{fin}": {
+      "get": {
+        "tags": [
+          "pedidos"
+        ],
+        "summary": "Obtener la cantidad ingresada de categorias con mayores ingresos para un periodo determinado",
+        "description": "Retorna la cantidad pedida de categorias junto con los ingresos generados en el periodo indicado",
+        "parameters": [
+          {
+            "name": "cantidad",
+            "in": "path",
+            "description": "cantidad de categorias a retornar",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "inicio",
+            "in": "path",
+            "description": "fecha de inicio del periodo",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "format": "aaaa/mm/dd"
+            }
+          },
+          {
+            "name": "fin",
+            "in": "path",
+            "description": "fecha de fin del periodo",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "format": "aaaa/mm/dd"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "operación exitosa",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoriasMasIngresos"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error en la entrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_400"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pedidos/ventas/anios": {
+      "get": {
+        "tags": [
+          "pedidos"
+        ],
+        "summary": "Obtener el total de ingresos para cada año",
+        "description": "Retorna los ingresos generados por cada año",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "operación exitosa",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VentasPorAnios"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pedidos/ventas/meses": {
+      "get": {
+        "tags": [
+          "pedidos"
+        ],
+        "summary": "Obtener el total de ingresos para cada mes",
+        "description": "Retorna los ingresos generados por cada mes",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "operación exitosa",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VentasPorMeses"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pedidos/ventas/dias": {
+      "get": {
+        "tags": [
+          "pedidos"
+        ],
+        "summary": "Obtener el total de ingresos por cada dia",
+        "description": "Retorna los ingresos generados por cada dia",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "operación exitosa",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VentasPorDias"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Vendidos": {
+        "type": "array",
+        "example": [
+          {
+            "marca": "Pepas Trio",
+            "cantidad": "350"
+          },
+          {
+            "marca": "Coca Cola 2.25lts",
+            "cantidad": "234"
+          },
+          {
+            "marca": "Terma Citrus",
+            "cantidad": "124"
+          }
+        ],
+        "items": {
+          "$ref": "#/components/schemas/Vendidos_inner"
+        }
+      },
+      "VendidosCategoria": {
+        "type": "array",
+        "example": [
+          {
+            "marca": "Pepas Trio",
+            "cantidad": "243"
+          },
+          {
+            "marca": "Oreo",
+            "cantidad": "227"
+          },
+          {
+            "marca": "Criollitas",
+            "cantidad": "159"
+          }
+        ],
+        "items": {
+          "$ref": "#/components/schemas/Vendidos_inner"
+        }
+      },
+      "CategoriasMasVendidos": {
+        "type": "array",
+        "example": [
+          {
+            "categoria": "Galletitas",
+            "cantidad": "1253"
+          },
+          {
+            "categoria": "Frutas",
+            "cantidad": "895"
+          },
+          {
+            "categoria": "Bebidas",
+            "cantidad": "776"
+          }
+        ],
+        "items": {
+          "$ref": "#/components/schemas/CategoriasMasVendidos_inner"
+        }
+      },
+      "CategoriasMasIngresos": {
+        "type": "array",
+        "example": [
+          {
+            "categoria": "Galletitas",
+            "cantidad": "37865"
+          },
+          {
+            "categoria": "Frutas",
+            "cantidad": "31247"
+          },
+          {
+            "categoria": "Bebidas",
+            "cantidad": "28543"
+          }
+        ],
+        "items": {
+          "$ref": "#/components/schemas/CategoriasMasIngresos_inner"
+        }
+      },
+      "VentasPorAnios": {
+        "type": "array",
+        "example": [
+          {
+            "fecha": "2019-01-01",
+            "total": "98765"
+          },
+          {
+            "fecha": "2020-01-01",
+            "total": "65453"
+          },
+          {
+            "fecha": "2021-01-01",
+            "total": "32145"
+          }
+        ],
+        "items": {
+          "$ref": "#/components/schemas/VentasPorAnios_inner"
+        }
+      },
+      "VentasPorMeses": {
+        "type": "array",
+        "example": [
+          {
+            "fecha": "2021-05-01",
+            "total": "45321"
+          },
+          {
+            "fecha": "2021-03-01",
+            "total": "23145"
+          },
+          {
+            "fecha": "2021-07-01",
+            "total": "19453"
+          }
+        ],
+        "items": {
+          "$ref": "#/components/schemas/VentasPorAnios_inner"
+        }
+      },
+      "VentasPorDias": {
+        "type": "array",
+        "example": [
+          {
+            "fecha": "2021-05-01",
+            "total": "11223"
+          },
+          {
+            "fecha": "2021-05-21",
+            "total": "10786"
+          },
+          {
+            "fecha": "2021-07-01",
+            "total": "9546"
+          }
+        ],
+        "items": {
+          "$ref": "#/components/schemas/VentasPorAnios_inner"
+        }
+      },
+      "ErrorCantidad": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "example": "La entrada cantidad debe ser un número"
+          }
+        }
+      },
+      "ErrorPeriodo": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "example": "El formato de la fecha es incorrecto. Formato esperado: aaaa-mm-dd"
+          }
+        }
+      },
+      "ErrorCategoria": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "example": "El formato del nombre de la categoria no es valido. Debe ser una entrada alfabetica"
+          }
+        }
+      },
+      "inline_response_400": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/ErrorCantidad"
+          },
+          {
+            "$ref": "#/components/schemas/ErrorPeriodo"
+          }
+        ]
+      },
+      "inline_response_400_1": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/ErrorCantidad"
+          },
+          {
+            "$ref": "#/components/schemas/ErrorCategoria"
+          }
+        ]
+      },
+      "inline_response_400_2": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/ErrorCantidad"
+          },
+          {
+            "$ref": "#/components/schemas/ErrorCategoria"
+          },
+          {
+            "$ref": "#/components/schemas/ErrorPeriodo"
+          }
+        ]
+      },
+      "Vendidos_inner": {
+        "type": "object",
+        "properties": {
+          "marca": {
+            "type": "string"
+          },
+          "cantidad": {
+            "type": "integer"
+          }
+        }
+      },
+      "CategoriasMasVendidos_inner": {
+        "type": "object",
+        "properties": {
+          "categoria": {
+            "type": "string"
+          },
+          "cantidad": {
+            "type": "integer"
+          }
+        }
+      },
+      "CategoriasMasIngresos_inner": {
+        "type": "object",
+        "properties": {
+          "categoria": {
+            "type": "string"
+          },
+          "total": {
+            "type": "integer"
+          }
+        }
+      },
+      "VentasPorAnios_inner": {
+        "type": "object",
+        "properties": {
+          "fecha": {
+            "type": "string"
+          },
+          "total": {
+            "type": "integer"
+          }
+        }
+      }
+    }
+  }
+}
